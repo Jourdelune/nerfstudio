@@ -99,6 +99,7 @@ def run_colmap(
     matching_method: Literal["vocab_tree", "exhaustive", "sequential"] = "vocab_tree",
     refine_intrinsics: bool = True,
     colmap_cmd: str = "colmap",
+    max_num_features: int = 768,
 ) -> None:
     """Runs COLMAP on the images.
 
@@ -125,6 +126,7 @@ def run_colmap(
         f"--database_path {colmap_dir / 'database.db'}",
         f"--image_path {image_dir}",
         "--ImageReader.single_camera 1",
+        f"--SiftExtraction.max_num_features {max_num_features}",
         f"--ImageReader.camera_model {camera_model.value}",
         f"--SiftExtraction.use_gpu {int(gpu)}",
     ]
@@ -179,6 +181,7 @@ def run_colmap(
                 f"--input_path {sparse_dir}/0",
                 f"--output_path {sparse_dir}/0",
                 "--BundleAdjustment.refine_principal_point 1",
+                f"--Mapper.ba_use_gpu={int(gpu)}",
             ]
             run_command(" ".join(bundle_adjuster_cmd), verbose=verbose)
         CONSOLE.log("[bold green]:tada: Done refining intrinsics.")
