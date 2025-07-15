@@ -104,6 +104,8 @@ class ColmapConverterToNerfstudioDataset(BaseConverterToNerfstudioDataset):
     use_single_camera_mode: bool = True
     """Whether to assume all images taken with the same camera characteristics, set to False for multiple cameras in colmap (only works with hloc sfm_tool).
     """
+    max_num_features: int = 768
+    """Number of feature to extract"""
 
     @staticmethod
     def default_colmap_path() -> Path:
@@ -219,6 +221,7 @@ class ColmapConverterToNerfstudioDataset(BaseConverterToNerfstudioDataset):
                 matching_method=self.matching_method,
                 refine_intrinsics=self.refine_intrinsics,
                 colmap_cmd=self.colmap_cmd,
+                max_num_features=self.max_num_features,
             )
         elif sfm_tool == "hloc":
             if mask_path is not None:
