@@ -183,7 +183,6 @@ def run_colmap(
                     f"--input_path {sparse_dir}/{i}",
                     f"--output_path {sparse_dir}/{i}",
                     "--BundleAdjustment.refine_principal_point 1",
-                    f"--Mapper.ba_use_gpu {int(gpu)}",
                 ]
                 run_command(" ".join(bundle_adjuster_cmd), verbose=verbose)
         CONSOLE.log("[bold green]:tada: Done refining intrinsics.")
