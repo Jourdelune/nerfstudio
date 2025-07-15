@@ -176,14 +176,15 @@ def run_colmap(
 
     if refine_intrinsics:
         with status(msg="[bold yellow]Refine intrinsics...", spinner="dqpb", verbose=verbose):
-            bundle_adjuster_cmd = [
-                f"{colmap_cmd} bundle_adjuster",
-                f"--input_path {sparse_dir}/0",
-                f"--output_path {sparse_dir}/0",
-                "--BundleAdjustment.refine_principal_point 1",
-                f"--Mapper.ba_use_gpu={int(gpu)}",
-            ]
-            run_command(" ".join(bundle_adjuster_cmd), verbose=verbose)
+            for i in range(len(os.listdir(sparse_dir))):
+                bundle_adjuster_cmd = [
+                    f"{colmap_cmd} bundle_adjuster",
+                    f"--input_path {sparse_dir}/{i}",
+                    f"--output_path {sparse_dir}/{i}",
+                    "--BundleAdjustment.refine_principal_point 1",
+                    f"--Mapper.ba_use_gpu {int(gpu)}",
+                ]
+                run_command(" ".join(bundle_adjuster_cmd), verbose=verbose)
         CONSOLE.log("[bold green]:tada: Done refining intrinsics.")
 
 
