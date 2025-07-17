@@ -114,7 +114,7 @@ ARG CUDA_ARCHITECTURES
 ARG NVIDIA_CUDA_VERSION
 ARG UBUNTU_VERSION
 
-LABEL org.opencontainers.image.source = "https://github.com/nerfstudio-project/nerfstudio"
+LABEL org.opencontainers.image.source = "https://github.com/jourdelune/nerfstudio"
 LABEL org.opencontainers.image.licenses = "Apache License 2.0"
 LABEL org.opencontainers.image.base.name="docker.io/library/nvidia/cuda:${NVIDIA_CUDA_VERSION}-devel-ubuntu${UBUNTU_VERSION}"
 LABEL org.opencontainers.image.documentation = "https://docs.nerf.studio/"
@@ -140,7 +140,8 @@ RUN apt-get update && \
         python3.10-dev \
         build-essential \
         python-is-python3 \
-        ffmpeg
+        ffmpeg \
+        libcurl4
 
 # Copy packages from builder stage.
 COPY --from=builder /build/colmap/ /usr/local/
