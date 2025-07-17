@@ -145,9 +145,7 @@ def run_colmap(
         f"--database_path {colmap_dir / 'database.db'}",
         f"--SiftMatching.use_gpu {int(gpu)}",
     ]
-    if matching_method == "vocab_tree":
-        vocab_tree_filename = get_vocab_tree()
-        feature_matcher_cmd.append(f'--VocabTreeMatching.vocab_tree_path "{vocab_tree_filename}"')
+  
     feature_matcher_cmd = " ".join(feature_matcher_cmd)
     with status(msg="[bold yellow]Running COLMAP feature matcher...", spinner="runner", verbose=verbose):
         run_command(feature_matcher_cmd, verbose=verbose)
